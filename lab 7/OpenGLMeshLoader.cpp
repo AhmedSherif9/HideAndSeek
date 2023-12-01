@@ -42,6 +42,7 @@ int cameraZoom = 0;
 // Model Variables
 Model_3DS model_house;
 Model_3DS model_tree;
+Model_3DS model_livingroom;
 
 // Textures
 GLTexture tex_ground;
@@ -194,6 +195,12 @@ void myDisplay(void)
 	glPushMatrix();
 	glRotatef(90.f, 1, 0, 0);
 	model_house.Draw();
+	glPopMatrix();
+
+	// Draw living room Model
+	glPushMatrix();
+	glRotatef(90.f, 1, 0, 0);
+	model_livingroom.Draw();
 	glPopMatrix();
 
 
