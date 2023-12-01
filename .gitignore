@@ -1,0 +1,15 @@
+# Ignore Debug folder
+Debug/
+
+# Ignore Visual Studio files
+.vscode/
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.cache
+*.log
+*.swp
+*.tmp
+
