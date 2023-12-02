@@ -325,6 +325,7 @@ void LoadAssets()
 	// Loading Model files
 	model_house.Load("Models/house/house.3DS");
 	model_tree.Load("Models/tree/Tree1.3ds");
+	model_livingroom.Load("Models/livingroom/livingroom.3ds");
 
 	// Loading texture files
 	tex_ground.Load("Textures/ground.bmp");
