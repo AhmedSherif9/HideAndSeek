@@ -192,10 +192,10 @@ void myDisplay(void)
 	glPopMatrix();
 
 	// Draw house Model
-	glPushMatrix();
-	glRotatef(90.f, 1, 0, 0);
-	model_house.Draw();
-	glPopMatrix();
+	//glPushMatrix();
+	//glRotatef(90.f, 1, 0, 0);
+	//model_house.Draw();
+	//glPopMatrix();
 
 	// Draw living room Model
 	glPushMatrix();
@@ -325,7 +325,7 @@ void LoadAssets()
 	// Loading Model files
 	model_house.Load("Models/house/house.3DS");
 	model_tree.Load("Models/tree/Tree1.3ds");
-	model_livingroom.Load("Models/livingroom/livingroom.3ds");
+	model_livingroom.Load("Models/ArchCave_3DS/ArchCave.3ds");
 
 	// Loading texture files
 	tex_ground.Load("Textures/ground.bmp");
