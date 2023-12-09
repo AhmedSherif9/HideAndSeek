@@ -182,10 +182,11 @@ void myDisplay(void)
 	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
 
 	// Draw Ground
-	//RenderGround();
+	RenderGround();
 
 	// Draw Tree Model
 	glPushMatrix();
+	//glRotatef(90.f, 1, 0, 0);
 	glTranslatef(10, 0, 0);
 	glScalef(0.7, 0.7, 0.7);
 	model_tree.Draw();
@@ -193,15 +194,9 @@ void myDisplay(void)
 
 	// Draw house Model
 	glPushMatrix();
-	glRotatef(90.f, 1, 0, 0);
+	glScalef(0.1, 0.1, 0.1);
 	model_house.Draw();
 	glPopMatrix();
-
-	// Draw chair Model
-	//glPushMatrix();
-	//glRotatef(90.f, 1, 0, 0);
-	//model_chair.Draw();
-	//glPopMatrix();
 
 
 	//sky box
@@ -323,7 +318,7 @@ void myReshape(int w, int h)
 void LoadAssets()
 {
 	// Loading Model files
-	model_house.Load("Models/Door/Door.3DS");
+	model_house.Load("Models/apple/apple.3ds");
 	model_tree.Load("Models/tree/Tree1.3ds");
 	//model_chair.Load("models/bear/chair.3ds");
 
