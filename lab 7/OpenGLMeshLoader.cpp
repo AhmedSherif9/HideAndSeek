@@ -2,7 +2,15 @@
 #include "Model_3DS.h"
 #include "GLTexture.h"
 #include <glut.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <sstream>
+#include <vector>
 
+#define GLUT_KEY_ESCAPE 27
+#define DEG2RAD(a) (a * 0.0174532925)
 int WIDTH = 1280;
 int HEIGHT = 720;
 
@@ -13,7 +21,99 @@ char title[] = "3D Model Loader Sample";
 GLdouble fovy = 45.0;
 GLdouble aspectRatio = (GLdouble)WIDTH / (GLdouble)HEIGHT;
 GLdouble zNear = 0.1;
-GLdouble zFar = 100;
+GLdouble zFar = 800;
+
+void setupCamera();
+void setupLights();
+
+class Vector3f {
+public:
+	float x, y, z;
+
+	Vector3f(float _x = 0.0f, float _y = 0.0f, float _z = 0.0f) {
+		x = _x;
+		y = _y;
+		z = _z;
+	}
+
+	Vector3f operator+(Vector3f& v) {
+		return Vector3f(x + v.x, y + v.y, z + v.z);
+	}
+
+	Vector3f operator-(Vector3f& v) {
+		return Vector3f(x - v.x, y - v.y, z - v.z);
+	}
+
+	Vector3f operator*(float n) {
+		return Vector3f(x * n, y * n, z * n);
+	}
+
+	Vector3f operator/(float n) {
+		return Vector3f(x / n, y / n, z / n);
+	}
+
+	Vector3f unit() {
+		return *this / sqrt(x * x + y * y + z * z);
+	}
+
+	Vector3f cross(Vector3f v) {
+		return Vector3f(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x);
+	}
+};
+
+class Camera {
+public:
+	Vector3f eye, center, up;
+
+	Camera(float eyeX = 45.0f, float eyeY = 45.0f, float eyeZ = 65.0f, float centerX = 0.0f, float centerY = 0.0f, float centerZ = 0.0f, float upX = 0.0f, float upY = 1.0f, float upZ = 0.0f) {
+		eye = Vector3f(eyeX, eyeY, eyeZ);
+		center = Vector3f(centerX, centerY, centerZ);
+		up = Vector3f(upX, upY, upZ);
+	}
+
+	void moveX(float d) {
+		Vector3f right = up.cross(center - eye).unit();
+		eye = eye + right * d;
+		center = center + right * d;
+	}
+
+	void moveY(float d) {
+		eye = eye + up.unit() * d;
+		center = center + up.unit() * d;
+	}
+
+	void moveZ(float d) {
+		Vector3f view = (center - eye).unit();
+		eye = eye + view * d;
+		center = center + view * d;
+	}
+
+	void rotateX(float a) {
+		Vector3f view = (center - eye).unit();
+		Vector3f right = up.cross(view).unit();
+		view = view * cos(DEG2RAD(a)) + up * sin(DEG2RAD(a));
+		up = view.cross(right);
+		center = eye + view;
+	}
+
+	void rotateY(float a) {
+		Vector3f view = (center - eye).unit();
+		Vector3f right = up.cross(view).unit();
+		view = view * cos(DEG2RAD(a)) + right * sin(DEG2RAD(a));
+		right = view.cross(up);
+		center = eye + view;
+	}
+
+	void look() {
+		gluLookAt(
+			eye.x, eye.y, eye.z,
+			center.x, center.y, center.z,
+			up.x, up.y, up.z
+		);
+	}
+};
+
+Camera camera;
 
 class Vector
 {
@@ -42,7 +142,15 @@ int cameraZoom = 0;
 // Model Variables
 Model_3DS model_house;
 Model_3DS model_tree;
+Model_3DS model_palmtree;
 Model_3DS model_chair;
+Model_3DS model_apple;
+Model_3DS model_table;
+Model_3DS model_wardrobe;
+Model_3DS model_coin;
+Model_3DS model_door;
+Model_3DS model_wall;
+
 
 // Textures
 GLTexture tex_ground;
@@ -152,13 +260,13 @@ void RenderGround()
 	glBegin(GL_QUADS);
 	glNormal3f(0, 1, 0);	// Set quad normal direction.
 	glTexCoord2f(0, 0);		// Set tex coordinates ( Using (0,0) -> (5,5) with texture wrapping set to GL_REPEAT to simulate the ground repeated grass texture).
-	glVertex3f(-20, 0, -20);
+	glVertex3f(-200, 0, -200);
 	glTexCoord2f(5, 0);
-	glVertex3f(20, 0, -20);
+	glVertex3f(200, 0, -200);
 	glTexCoord2f(5, 5);
-	glVertex3f(20, 0, 20);
+	glVertex3f(200, 0, 200);
 	glTexCoord2f(0, 5);
-	glVertex3f(-20, 0, 20);
+	glVertex3f(-200, 0, 200);
 	glEnd();
 	glPopMatrix();
 
@@ -170,8 +278,19 @@ void RenderGround()
 //=======================================================================
 // Display Function
 //=======================================================================
+
+void drawWall(double thickness) {
+	glPushMatrix();
+	glTranslated(0.5, 0.5 * thickness, 0.5);
+	glScaled(1.0, thickness, 1.0);
+	glutSolidCube(1);
+	glPopMatrix();
+}
 void myDisplay(void)
 {
+	setupCamera();
+	setupLights();
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
@@ -180,6 +299,7 @@ void myDisplay(void)
 	GLfloat lightPosition[] = { 0.0f, 100.0f, 0.0f, 0.0f };
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
+
 
 	// Draw Ground
 	RenderGround();
@@ -193,11 +313,11 @@ void myDisplay(void)
 	glPopMatrix();
 
 	// Draw house Model
-	glPushMatrix();
-	glScalef(0.1, 0.1, 0.1);
-	model_house.Draw();
-	glPopMatrix();
-
+	//glPushMatrix();
+	//glRotatef(90.f, 1, 0, 0);
+	//glScalef(3, 3, 3);
+	//model_house.Draw();
+	//glPopMatrix();
 
 	//sky box
 	glPushMatrix();
@@ -223,20 +343,60 @@ void myDisplay(void)
 //=======================================================================
 // Keyboard Function
 //=======================================================================
-void myKeyboard(unsigned char button, int x, int y)
+void myKeyboard(unsigned char key, int x, int y)
 {
-	switch (button)
-	{
-	case 'w':
+	float d = 1.0;
+
+	switch (key) {
+	case 'r':
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		break;
-	case 'r':
+	case 't':
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		break;
 	case 27:
 		exit(0);
 		break;
+	case 'w':
+		camera.moveY(d);
+		break;
+	case 's':
+		camera.moveY(-d);
+		break;
+	case 'a':
+		camera.moveX(d);
+		break;
+	case 'd':
+		camera.moveX(-d);
+		break;
+	case 'q':
+		camera.moveZ(d);
+		break;
+	case 'e':
+		camera.moveZ(-d);
+		break;
 	default:
+		break;
+	}
+
+
+	glutPostRedisplay();
+}
+void Special(int key, int x, int y) {
+	float a = 1.0;
+
+	switch (key) {
+	case GLUT_KEY_UP:
+		camera.rotateX(a);
+		break;
+	case GLUT_KEY_DOWN:
+		camera.rotateX(-a);
+		break;
+	case GLUT_KEY_LEFT:
+		camera.rotateY(a);
+		break;
+	case GLUT_KEY_RIGHT:
+		camera.rotateY(-a);
 		break;
 	}
 
@@ -318,13 +478,49 @@ void myReshape(int w, int h)
 void LoadAssets()
 {
 	// Loading Model files
-	model_house.Load("Models/apple/apple.3ds");
-	model_tree.Load("Models/tree/Tree1.3ds");
-	//model_chair.Load("models/bear/chair.3ds");
+	model_house.Load("Models/house/house.3ds");
+	model_wall.Load("Models/wall/wall.3ds");
+	/*model_tree.Load("Models/tree/Tree1.3ds");
+	model_palmtree.Load("models/bear/chair.3ds");
+	model_chair.Load("Models/tree/Tree1.3ds");
+	model_apple.Load("models/bear/chair.3ds");
+	model_table.Load("Models/wall/wall.3ds");
+	model_wardrobe.Load("Models/tree/Tree1.3ds");
+	model_coin.Load("models/bear/chair.3ds");
+	model_door.Load("models/bear/chair.3ds");*/
 
 	// Loading texture files
 	tex_ground.Load("Textures/ground.bmp");
 	loadBMP(&tex, "Textures/blu-sky-3.bmp", true);
+}
+
+//................................................................................................
+
+void setupLights() {
+	GLfloat ambient[] = { 0.7f, 0.7f, 0.7, 1.0f };
+	GLfloat diffuse[] = { 0.6f, 0.6f, 0.6, 1.0f };
+	GLfloat specular[] = { 1.0f, 1.0f, 1.0, 1.0f };
+	GLfloat shininess[] = { 50 };
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient);
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, diffuse);
+	glMaterialfv(GL_FRONT, GL_SPECULAR, specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, shininess);
+
+	GLfloat lightIntensity[] = { 0.7f, 0.7f, 1, 1.0f };
+	GLfloat lightPosition[] = { -7.0f, 6.0f, 3.0f, 0.0f };
+	glLightfv(GL_LIGHT0, GL_POSITION, lightIntensity);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, lightIntensity);
+}
+
+void setupCamera() {
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	gluPerspective(fovy,aspectRatio,zNear,zFar);
+
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	camera.look();
 }
 
 //=======================================================================
@@ -345,6 +541,8 @@ void main(int argc, char** argv)
 	glutDisplayFunc(myDisplay);
 
 	glutKeyboardFunc(myKeyboard);
+
+	glutSpecialFunc(Special);
 
 	glutMotionFunc(myMotion);
 
