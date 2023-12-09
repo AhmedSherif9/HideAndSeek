@@ -21,7 +21,7 @@ char title[] = "3D Model Loader Sample";
 GLdouble fovy = 45.0;
 GLdouble aspectRatio = (GLdouble)WIDTH / (GLdouble)HEIGHT;
 GLdouble zNear = 0.1;
-GLdouble zFar = 800;
+GLdouble zFar = 4800;
 
 void setupCamera();
 void setupLights();
@@ -65,7 +65,7 @@ class Camera {
 public:
 	Vector3f eye, center, up;
 
-	Camera(float eyeX = 45.0f, float eyeY = 45.0f, float eyeZ = 65.0f, float centerX = 0.0f, float centerY = 0.0f, float centerZ = 0.0f, float upX = 0.0f, float upY = 1.0f, float upZ = 0.0f) {
+	Camera(float eyeX = 65.0f, float eyeY = 2500.0f, float eyeZ = 105.0f, float centerX = 0.0f, float centerY = 0.0f, float centerZ = 0.0f, float upX = 0.0f, float upY = 1.0f, float upZ = 0.0f) {
 		eye = Vector3f(eyeX, eyeY, eyeZ);
 		center = Vector3f(centerX, centerY, centerZ);
 		up = Vector3f(upX, upY, upZ);
@@ -260,13 +260,13 @@ void RenderGround()
 	glBegin(GL_QUADS);
 	glNormal3f(0, 1, 0);	// Set quad normal direction.
 	glTexCoord2f(0, 0);		// Set tex coordinates ( Using (0,0) -> (5,5) with texture wrapping set to GL_REPEAT to simulate the ground repeated grass texture).
-	glVertex3f(-200, 0, -200);
+	glVertex3f(-2500, 0, -2500);
 	glTexCoord2f(5, 0);
-	glVertex3f(200, 0, -200);
+	glVertex3f(2500, 0, -2500);
 	glTexCoord2f(5, 5);
-	glVertex3f(200, 0, 200);
+	glVertex3f(2500, 0, 2500);
 	glTexCoord2f(0, 5);
-	glVertex3f(-200, 0, 200);
+	glVertex3f(-2500, 0, 2500);
 	glEnd();
 	glPopMatrix();
 
@@ -282,7 +282,7 @@ void RenderGround()
 void drawWall(double thickness) {
 	glPushMatrix();
 	glTranslated(0.5, 0.5 * thickness, 0.5);
-	glScaled(1.0, thickness, 1.0);
+	glScaled(80.0, thickness, 80.0);
 	glutSolidCube(1);
 	glPopMatrix();
 }
@@ -293,31 +293,228 @@ void myDisplay(void)
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-
 	GLfloat lightIntensity[] = { 0.7, 0.7, 0.7, 1.0f };
 	GLfloat lightPosition[] = { 0.0f, 100.0f, 0.0f, 0.0f };
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
 
+	//walls
+	//ground
+	glColor3f(0.5, 0.35, 0.05);
+	glPushMatrix();
+	glRotated(-45, 0.0, 1.0, 0.0);
+	glScaled(20,2,20);
+	drawWall(0.02);
+	glPopMatrix();
+
+	//front
+	glColor3f(0.4, 0.2, 0.0);
+	glPushMatrix();
+	glTranslated(575, 0, 575);
+	glRotated(-45, 0.0, 1.0, 0.0);
+	glRotated(90, 0.0, 0.0, 1.0);
+	glScaled(20, 2, 20);
+	drawWall(0.02);
+	glPopMatrix();
+
+	//back
+	glPushMatrix();
+	glTranslated(-555, 0, -555);
+	glRotated(-45, 0.0, 1.0, 0.0);
+	glRotated(90, 0.0, 0.0, 1.0);
+	glScaled(20, 2, 20);
+	drawWall(0.02);
+	glPopMatrix();
+
+	//right
+	glPushMatrix();
+	glTranslated(555, 0, -555);
+	glRotated(45, 0.0, 1.0, 0.0);
+	glRotated(90, 0.0, 0.0, 1.0);
+	glScaled(20, 2, 20);
+	drawWall(0.02);
+	glPopMatrix();
+
+	//left
+	glPushMatrix();
+	glTranslated(-575, 0, 575);
+	glRotated(45, 0.0, 1.0, 0.0);
+	glRotated(90, 0.0, 0.0, 1.0);
+	glScaled(20, 2, 20);
+	drawWall(0.02);
+	glPopMatrix();
 
 	// Draw Ground
 	RenderGround();
 
+	// Draw apple Model
+	glPushMatrix();
+	glTranslatef(0, 0, 1700);
+	glScalef(1.0, 1.0, 1.0);
+	model_apple.Draw();
+	glPopMatrix();
 	// Draw Tree Model
 	glPushMatrix();
-	//glRotatef(90.f, 1, 0, 0);
-	glTranslatef(10, 0, 0);
-	glScalef(0.7, 0.7, 0.7);
+	glTranslatef(100, 0, 1700);
+	glScalef(100.0, 100.0, 100.0);
+	model_tree.Draw();
+	glPopMatrix();
+	// Draw apple Model
+	glPushMatrix();
+	glTranslatef(900, 0, 1700);
+	glScalef(1.0, 1.0, 1.0);
+	model_apple.Draw();
+	glPopMatrix();
+
+	// Draw apple Model
+	glPushMatrix();
+	glTranslatef(1800, 0, 600);
+	glScalef(1.0, 1.0, 1.0);
+	model_apple.Draw();
+	glPopMatrix();
+	// Draw Tree Model
+	glPushMatrix();
+	glTranslatef(1800, 0, 100);
+	glScalef(100.0, 100.0, 100.0);
+	model_tree.Draw();
+	glPopMatrix();
+	// Draw apple Model
+	glPushMatrix();
+	glTranslatef(1800, 0, 0);
+	glScalef(1.0, 1.0, 1.0);
+	model_apple.Draw();
+	glPopMatrix();
+
+	// Draw apple Model
+	glPushMatrix();
+	glTranslatef(-1670, 0, -1900);
+	glScalef(1.0, 1.0, 1.0);
+	model_apple.Draw();
+	glPopMatrix();
+	// Draw Tree Model
+	glPushMatrix();
+	glTranslatef(-1270, 0, -1700);
+	glScalef(100.0, 100.0, 100.0);
 	model_tree.Draw();
 	glPopMatrix();
 
-	// Draw house Model
-	//glPushMatrix();
-	//glRotatef(90.f, 1, 0, 0);
-	//glScalef(3, 3, 3);
-	//model_house.Draw();
-	//glPopMatrix();
+	// Draw apple Model
+	glPushMatrix();
+	glTranslatef(1500, 0, -1900);
+	glScalef(1.0, 1.0, 1.0);
+	model_apple.Draw();
+	glPopMatrix();
+	// Draw Tree Model
+	glPushMatrix();
+	glTranslatef(1000, 0, -1600);
+	glScalef(100.0, 100.0, 100.0);
+	model_tree.Draw();
+	glPopMatrix();
+
+	// Draw palm Tree Model
+	glPushMatrix();
+	glTranslatef(-1600, 0, 1000);
+	glScalef(100.0, 100.0, 100.0);
+	model_palmtree.Draw();
+	glPopMatrix();
+	// Draw apple Model
+	glPushMatrix();
+	glTranslatef(-2100, 0, -500);
+	glScalef(1.0, 1.0, 1.0);
+	model_apple.Draw();
+	glPopMatrix();
+
+	// Draw Table Model
+	glPushMatrix();
+	glTranslated(800, 0, 50);
+	glRotated(45, 0.0, 1.0, 0.0);
+	glScalef(3.0, 3.0, 3.0);
+	model_table.Draw();
+	glPopMatrix();
+
+	// Draw Table Model
+	glPushMatrix();
+	glTranslated(50, 0, 700);
+	glScalef(3.0, 3.0, 3.0);
+	model_table.Draw();
+	glPopMatrix();
+
+	// Draw wardrobe Model
+	glPushMatrix();
+	glTranslated(-800, 0, 50);
+	glRotated(-135, 0.0, 1.0, 0.0);
+	glScalef(200.0, 200.0, 200.0);
+	model_wardrobe.Draw();
+	glPopMatrix();
+
+	// Draw Table Model
+	glPushMatrix();
+	glTranslated(-400, 0, -280);
+	glRotated(135, 0.0, 1.0, 0.0);
+	glScalef(3.0, 3.0, 3.0);
+	model_table.Draw();
+	glPopMatrix();
+
+	// Draw Chair Model
+	glPushMatrix();
+	glTranslated(50, 0, 650);
+	glScalef(1.8, 1.8, 1.8);
+	model_chair.Draw();
+	glPopMatrix();
+
+	// Draw Chair Model
+	glPushMatrix();
+	glTranslated(-400, 0, -180);
+	glRotated(135, 0.0, 1.0, 0.0);
+	glScalef(1.8, 1.8, 1.8);
+	model_chair.Draw();
+	glPopMatrix();
+	// Draw Chair Model
+	glPushMatrix();
+	glTranslated(-500, 0, -280);
+	glRotated(135, 0.0, 1.0, 0.0);
+	glScalef(1.8, 1.8, 1.8);
+	model_chair.Draw();
+	glPopMatrix();
+	// Draw Chair Model
+	glPushMatrix();
+	glTranslated(-300, 0, -280);
+	glRotated(315, 0.0, 1.0, 0.0);
+	glScalef(1.8, 1.8, 1.8);
+	model_chair.Draw();
+	glPopMatrix();
+	// Draw Chair Model
+	glPushMatrix();
+	glTranslated(-300, 0, -480);
+	glRotated(315, 0.0, 1.0, 0.0);
+	glScalef(1.8, 1.8, 1.8);
+	model_chair.Draw();
+	glPopMatrix();
+
+	// Draw Coin Model
+	glPushMatrix();
+	glTranslated(0, 100, 0);
+	glScalef(1.0, 1.0, 1.0);
+	model_coin.Draw();
+	glPopMatrix();
+	// Draw Coin Model
+	glPushMatrix();
+	glTranslated(-800, 100, 10);
+	glScalef(1.0, 1.0, 1.0);
+	model_coin.Draw();
+	glPopMatrix();
+	// Draw Coin Model
+	glPushMatrix();
+	glTranslated(1000, 100, 30);
+	glScalef(1.0, 1.0, 1.0);
+	model_coin.Draw();
+	glPopMatrix();
+	// Draw Coin Model
+	glPushMatrix();
+	glTranslated(0, 100, 900);
+	glScalef(1.0, 1.0, 1.0);
+	model_coin.Draw();
+	glPopMatrix();
 
 	//sky box
 	glPushMatrix();
@@ -329,6 +526,7 @@ void myDisplay(void)
 	glBindTexture(GL_TEXTURE_2D, tex);
 	gluQuadricTexture(qobj, true);
 	gluQuadricNormals(qobj, GL_SMOOTH);
+	glScalef(30, 30, 30);
 	gluSphere(qobj, 100, 100, 100);
 	gluDeleteQuadric(qobj);
 
@@ -345,7 +543,7 @@ void myDisplay(void)
 //=======================================================================
 void myKeyboard(unsigned char key, int x, int y)
 {
-	float d = 1.0;
+	float d = 20.0;
 
 	switch (key) {
 	case 'r':
@@ -478,16 +676,15 @@ void myReshape(int w, int h)
 void LoadAssets()
 {
 	// Loading Model files
-	model_house.Load("Models/house/house.3ds");
-	model_wall.Load("Models/wall/wall.3ds");
-	/*model_tree.Load("Models/tree/Tree1.3ds");
-	model_palmtree.Load("models/bear/chair.3ds");
-	model_chair.Load("Models/tree/Tree1.3ds");
-	model_apple.Load("models/bear/chair.3ds");
-	model_table.Load("Models/wall/wall.3ds");
-	model_wardrobe.Load("Models/tree/Tree1.3ds");
-	model_coin.Load("models/bear/chair.3ds");
-	model_door.Load("models/bear/chair.3ds");*/
+	//model_wall.Load("Models/wall/wall.3ds");
+	model_tree.Load("Models/tree/Tree1.3ds");
+	model_palmtree.Load("models/Tree3/Tree3.3ds");
+	model_table.Load("Models/odesd2_B2_3ds/odesd2_B2_3ds.3ds");
+	model_apple.Load("models/apple/apple.3ds");
+	model_chair.Load("Models/odesd2_C4_3ds/odesd2_C4_3ds.3ds");
+	model_wardrobe.Load("Models/Wardobe_3ds/MRWardobe.3ds");
+	model_coin.Load("models/3ds-coin/rc-coin.3ds");
+	//model_door.Load("models/bear/chair.3ds");
 
 	// Loading texture files
 	tex_ground.Load("Textures/ground.bmp");
