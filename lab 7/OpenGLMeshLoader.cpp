@@ -25,6 +25,7 @@ GLdouble zFar = 4800;
 
 void setupCamera();
 void setupLights();
+void checkForEnvironment2();
 
 class Vector3f {
 public:
@@ -147,7 +148,10 @@ Model_3DS model_chair;
 Model_3DS model_apple;
 Model_3DS model_table;
 Model_3DS model_wardrobe;
-Model_3DS model_coin;
+Model_3DS model_coin1;
+Model_3DS model_coin2;
+Model_3DS model_coin3;
+Model_3DS model_coin4;
 Model_3DS model_door;
 Model_3DS model_wall;
 Model_3DS model_zombie;
@@ -288,6 +292,32 @@ void drawWall(double thickness) {
 	glutSolidCube(1);
 	glPopMatrix();
 }
+
+void checkforCoins() {
+	if (model_character.pos.x == -700 && model_character.pos.z == -200) {
+		model_coin3.pos.x = 120000000;
+	}
+	if (model_character.pos.x == 0 && model_character.pos.z == 600) {
+		model_coin1.pos.x = 120000000;
+	}
+	if (model_character.pos.x == 600 && model_character.pos.z == -100) {
+		model_coin4.pos.x = 120000000;
+	}
+	if (model_character.pos.x == 400 && model_character.pos.z == 1300) {
+		model_coin2.pos.x = 120000000;
+	}
+	glutPostRedisplay();
+}
+
+void checkForEnvironment2() {
+	if (model_coin3.pos.x == 120000000 && model_coin2.pos.x == 120000000
+		&& model_coin1.pos.x == 120000000 && model_coin4.pos.x == 120000000
+		&& model_character.pos.z == 600 && model_character.pos.x == -700) {
+		model_character.pos.x -= 200;
+	}
+	glutPostRedisplay();
+}
+
 void myDisplay(void)
 {
 	setupCamera();
@@ -443,7 +473,7 @@ void myDisplay(void)
 
 	// Draw wardrobe Model
 	glPushMatrix();
-	glTranslated(-800, 0, 50);
+	glTranslated(-800, 0, 0);
 	glRotated(-135, 0.0, 1.0, 0.0);
 	glScalef(200.0, 200.0, 200.0);
 	model_wardrobe.Draw();
@@ -497,25 +527,25 @@ void myDisplay(void)
 	glPushMatrix();
 	glTranslated(0, 100, 0);
 	glScalef(1.0, 1.0, 1.0);
-	model_coin.Draw();
+	model_coin1.Draw();
 	glPopMatrix();
 	// Draw Coin Model
 	glPushMatrix();
-	glTranslated(-800, 100, -130);
+	glTranslated(-800, 100, -180);
 	glScalef(1.0, 1.0, 1.0);
-	model_coin.Draw();
+	model_coin2.Draw();
 	glPopMatrix();
 	// Draw Coin Model
 	glPushMatrix();
 	glTranslated(1000, 100, 30);
 	glScalef(1.0, 1.0, 1.0);
-	model_coin.Draw();
+	model_coin3.Draw();
 	glPopMatrix();
 	// Draw Coin Model
 	glPushMatrix();
 	glTranslated(0, 100, 900);
 	glScalef(1.0, 1.0, 1.0);
-	model_coin.Draw();
+	model_coin4.Draw();
 	glPopMatrix();
 
 	// Draw Door Model
@@ -575,8 +605,6 @@ void myDisplay(void)
 
 	glPopMatrix();
 
-
-
 	glutSwapBuffers();
 }
 
@@ -615,11 +643,121 @@ void myKeyboard(unsigned char key, int x, int y)
 	case 'e':
 		camera.moveZ(-d);
 		break;
+	case 'i':
+		model_character.rot.y = 0.0f;
+		if (model_character.pos.z == 1300 &&
+			(model_character.pos.x == 800 ||
+				model_character.pos.x == 700 || model_character.pos.x == 600 || model_character.pos.x == 500 || model_character.pos.x == 400 ||
+				model_character.pos.x == 300 || model_character.pos.x == 200 || model_character.pos.x == 100 ||
+				model_character.pos.x == 0 || model_character.pos.x == -100 ||
+				model_character.pos.x == -200 || model_character.pos.x == -300 ||
+				model_character.pos.x == -400 || model_character.pos.x == -500 ||
+				model_character.pos.x == -600 || model_character.pos.x == -700)) {
+			//sound for walls
+		}
+		else if (model_character.pos.z == -300 &&
+			(model_character.pos.x == 800 ||
+				model_character.pos.x == 700 || model_character.pos.x == 600 || model_character.pos.x == 500 || model_character.pos.x == 400 ||
+				model_character.pos.x == 300 || model_character.pos.x == 200 || model_character.pos.x == 100 ||
+				model_character.pos.x == 0 || model_character.pos.x == -100 ||
+				model_character.pos.x == -200 || model_character.pos.x == -300 ||
+				model_character.pos.x == -400 || model_character.pos.x == -500 ||
+				model_character.pos.x == -600 || model_character.pos.x == -700
+				|| model_character.pos.x == -800)) {
+			//sound for walls
+		}
+		else if ((model_character.pos.x == -400 && model_character.pos.z == -100) ||
+			(model_character.pos.x == -500 && model_character.pos.z == -100) ||
+			(model_character.pos.x == -600 && model_character.pos.z == -100) ||
+			(model_character.pos.x == -700 && model_character.pos.z == -100) ||
+			(model_character.pos.x == 300 && model_character.pos.z == -100) ||
+			(model_character.pos.x == 400 && model_character.pos.z == -200) ||
+			(model_character.pos.x == 500 && model_character.pos.z == -100) ||
+			(model_character.pos.x == 600 && model_character.pos.z == 0) ||
+			(model_character.pos.x == 100 && model_character.pos.z == 800)
+			) {
+			//sound for tables
+		}
+		else if ((model_character.pos.x == 500 && model_character.pos.z == 1000) ||
+			(model_character.pos.x == 600 && model_character.pos.z == 1000)) {
+			//sound for wardrobe
+		}
+		else if ((model_character.pos.x == -500 && model_character.pos.z == 1100) ||
+			(model_character.pos.x == -600 && model_character.pos.z == 1100)) {
+			//sound for bulb
+		}
+		else if ((model_character.pos.x == 1800 && model_character.pos.z == 900) ||
+			(model_character.pos.x == 1900 && model_character.pos.z == 900) ||
+			(model_character.pos.x == 1200 && model_character.pos.z == -800) || 
+			(model_character.pos.x == 1100 && model_character.pos.z == -800) || 
+			(model_character.pos.x == -1200 && model_character.pos.z == -900) || 
+			(model_character.pos.x == -1800 && model_character.pos.z == 900) || 
+			(model_character.pos.x == -1900 && model_character.pos.z == 900) || 
+			(model_character.pos.x == -300 && model_character.pos.z == 2600) ) {
+			//sound for trees
+		}
+		else {
+			model_character.pos.z += 100.0f;
+		}
+		std::cout << " z is: " << model_character.pos.z;
+		break;
+	case 'j':
+		model_character.rot.y = 90.0f;
+		if (model_character.pos.x == 800 &&
+			(model_character.pos.z == -200 || model_character.pos.z == -100 || model_character.pos.z == 0 || model_character.pos.z == 100 ||
+				model_character.pos.z == 200 || model_character.pos.z == 300 || model_character.pos.z == 400 ||
+				model_character.pos.z == 500 || model_character.pos.z == 600 ||
+				model_character.pos.z == 700 || model_character.pos.z == 800 ||
+				model_character.pos.z == 900 || model_character.pos.z == 1000 ||
+				model_character.pos.z == 1100 || model_character.pos.z == 1200 ||
+				model_character.pos.z == 1300)) {
+			//sound for walls
+		}
+		else {
+			model_character.pos.x += 100.0f;
+		}
+		std::cout << " x is: " << model_character.pos.x;
+		break;
+	case 'k':
+		model_character.rot.y = 180.0f;
+		if (model_character.pos.z == -200 &&
+			(model_character.pos.x == 800 ||
+				model_character.pos.x == 700 || model_character.pos.x == 600 || model_character.pos.x == 500 || model_character.pos.x == 400 ||
+				model_character.pos.x == 300 || model_character.pos.x == 200 || model_character.pos.x == 100 ||
+				model_character.pos.x == 0 || model_character.pos.x == -100 ||
+				model_character.pos.x == -200 || model_character.pos.x == -300 ||
+				model_character.pos.x == -400 || model_character.pos.x == -500 ||
+				model_character.pos.x == -600 || model_character.pos.x == -700)) {
+			// sound for walls
+		}
+		else {
+			model_character.pos.z -= 100.0f;
+		}
+		std::cout << " z is: " << model_character.pos.z;
+		break;
+	case 'l':
+		model_character.rot.y = -90.0f;
+		if (model_character.pos.x == -700 &&
+			(model_character.pos.z == -200 || model_character.pos.z == -100 || model_character.pos.z == 0 || model_character.pos.z == 100 ||
+				model_character.pos.z == 200|| model_character.pos.z == 300 || model_character.pos.z == 400 ||
+				model_character.pos.z == 500 || model_character.pos.z == 600 ||
+				model_character.pos.z == 700 || model_character.pos.z == 800 || 
+				model_character.pos.z == 900 || model_character.pos.z == 1000 || 
+				model_character.pos.z == 1100 || model_character.pos.z == 1200 || 
+				model_character.pos.z == 1300)) {
+			//sound for walls
+		}
+		else {
+			model_character.pos.x -= 100.0f;
+		}
+		std::cout << " x is: " << model_character.pos.x;
+		break;
 	default:
 		break;
 	}
 
-
+	checkforCoins();
+	checkForEnvironment2();
 	glutPostRedisplay();
 }
 void Special(int key, int x, int y) {
@@ -725,7 +863,10 @@ void LoadAssets()
 	model_apple.Load("models/apple/apple.3ds");
 	model_chair.Load("Models/odesd2_C4_3ds/odesd2_C4_3ds.3ds");
 	model_wardrobe.Load("Models/Wardobe_3ds/MRWardobe.3ds");
-	model_coin.Load("models/3ds-coin/rc-coin.3ds");
+	model_coin1.Load("models/3ds-coin/rc-coin.3ds");
+	model_coin2.Load("models/3ds-coin/rc-coin.3ds");
+	model_coin3.Load("models/3ds-coin/rc-coin.3ds");
+	model_coin4.Load("models/3ds-coin/rc-coin.3ds");
 	model_door.Load("models/Door_3DS/Door_Standart.3ds");
 	model_character.Load("models/Terrorist/FatTerrorist.3ds");
 	model_zombie.Load("models/Zombie/ZOMBIE.3ds");
