@@ -794,6 +794,13 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == 300 && model_character.pos.z == 100)) {
 			// sound for chair
 		}
+		else if ((model_character.pos.x == -1900 && model_character.pos.z == 1000) ||
+			(model_character.pos.x == -1300 && model_character.pos.z == -800) ||
+			(model_character.pos.x == 1000 && model_character.pos.z == -700) ||
+			(model_character.pos.x == 1700 && model_character.pos.z == 1000) ||
+			(model_character.pos.x == -400 && model_character.pos.z == 2700)) {
+			// sound for trees
+		}
 		else {
 			model_character.pos.x += 100.0f;
 		}
@@ -848,6 +855,16 @@ void myKeyboard(unsigned char key, int x, int y)
 			|| (model_character.pos.x == 400 && model_character.pos.z == 200)) {
 			// sound for chair
 		}
+		else if ((model_character.pos.x == -1900 && model_character.pos.z == 1100) ||
+			(model_character.pos.x == -1800 && model_character.pos.z == 1100) ||
+			(model_character.pos.x == -1200 && model_character.pos.z == -700) ||
+			(model_character.pos.x == 1100 && model_character.pos.z == -600) ||
+			(model_character.pos.x == 1200 && model_character.pos.z == -600) ||
+			(model_character.pos.x == 1800 && model_character.pos.z == 1100) ||
+			(model_character.pos.x == 1900 && model_character.pos.z == 1100) ||
+			(model_character.pos.x == -300 && model_character.pos.z == 2800)) {
+			// sound for trees
+		}
 		else {
 			model_character.pos.z -= 100.0f;
 		}
@@ -899,6 +916,14 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == 300 && model_character.pos.z == 1100)
 			|| (model_character.pos.x == 0 && model_character.pos.z == 1100)) {
 			// sound for chair
+		}
+		else if ((model_character.pos.x == -1700 && model_character.pos.z == 1000) ||
+			(model_character.pos.x == -1100 && model_character.pos.z == -800) ||
+			(model_character.pos.x == 1200 && model_character.pos.z == -700) ||
+			(model_character.pos.x == 1900 && model_character.pos.z == 1000) ||
+			(model_character.pos.x == -200 && model_character.pos.z == 2700) ||
+			(model_character.pos.x == -200 && model_character.pos.z == 2600)) {
+			// sound for trees
 		}
 		else {
 			model_character.pos.x -= 100.0f;
