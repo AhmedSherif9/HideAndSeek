@@ -27,6 +27,9 @@ void setupCamera();
 void setupLights();
 void checkForEnvironment2();
 void checkforApples();
+void renderString(float x, float y, float z, void* font, const char* string);
+void renderInteger(float x, float y, float z, void* font, int value);
+void checkforEndGame();
 
 class Vector3f {
 public:
@@ -303,15 +306,19 @@ void drawWall(double thickness) {
 void checkforCoins() {
 	if (model_character.pos.x == -700 && model_character.pos.z == -200) {
 		model_coin3.pos.x = 120000000;
+		//sound for coin
 	}
 	if (model_character.pos.x == 0 && model_character.pos.z == 600) {
 		model_coin1.pos.x = 120000000;
+		//sound for coin
 	}
 	if (model_character.pos.x == 600 && model_character.pos.z == -100) {
 		model_coin4.pos.x = 120000000;
+		//sound for coin
 	}
 	if (model_character.pos.x == 400 && model_character.pos.z == 1300) {
 		model_coin2.pos.x = 120000000;
+		//sound for coin
 	}
 	glutPostRedisplay();
 }
@@ -329,33 +336,67 @@ void checkforApples() {
 	if ((model_character.pos.x == -2400 && model_character.pos.z == 800) ||
 		(model_character.pos.x == -2400 && model_character.pos.z == 900)) {
 		model_apple6.pos.x = 120000000;
+		//sound for apple
 	}
 	if ((model_character.pos.x == -800 && model_character.pos.z == -1100) ||
 		(model_character.pos.x == -800 && model_character.pos.z == -1200)) {
 		model_apple3.pos.x = 120000000;
+		//sound for apple
 	}
 	if (model_character.pos.x == -1300 && model_character.pos.z == -700) {
 		model_apple4.pos.x = 120000000;
+		//sound for apple
 	}
 	if (model_character.pos.x == 600 && model_character.pos.z == -1300) {
 		model_apple2.pos.x = 120000000;
+		//sound for apple
 	}
 	if (model_character.pos.x == 1200 && model_character.pos.z == -600) {
 		model_apple1.pos.x = 120000000;
+		//sound for apple
 	}
 	if (model_character.pos.x == 1100 && model_character.pos.z == 2400) {
 		model_apple7.pos.x = 120000000;
+		//sound for apple
 	}
 	if (model_character.pos.x == -200 && model_character.pos.z == 3100) {
 		model_apple5.pos.x = 120000000;
+		//sound for apple
 	}
-	//if (model_character.pos.x == 600 && model_character.pos.z == -100) {
-		//model_coin4.pos.x = 120000000;
-//	}
-	//if (model_character.pos.x == 400 && model_character.pos.z == 1300) {
-		//model_coin2.pos.x = 120000000;
-	//}
 	glutPostRedisplay();
+}
+
+void renderString(float x, float y, float z, void* font, const char* string) {
+	glRasterPos3f(x, y, z);
+
+	for (const char* c = string; *c != '\0'; ++c) {
+		glutBitmapCharacter(font, *c);
+	}
+}
+
+void renderInteger(float x, float y, float z, void* font, int value) {
+	char buffer[10];
+	snprintf(buffer, sizeof(buffer), "%d", value);
+	renderString(x, y, z, font, buffer);
+}
+
+void checkforEndGame() {
+	if (((model_character.pos.x == 1700 && model_character.pos.z == 1000) ||
+		(model_character.pos.x == 1800 && model_character.pos.z == 900) || 
+		(model_character.pos.x == 1900 && model_character.pos.z == 900) || 
+		(model_character.pos.x == 1900 && model_character.pos.z == 1000) || 
+		(model_character.pos.x == 1800 && model_character.pos.z == 1100) || 
+		(model_character.pos.x == 1900 && model_character.pos.z == 1100)) &&
+		model_apple1.pos.x == 120000000 && model_apple2.pos.x == 120000000 &&
+		model_apple3.pos.x == 120000000 && model_apple4.pos.x == 120000000 &&
+		model_apple5.pos.x == 120000000 && model_apple6.pos.x == 120000000 &&
+		model_apple7.pos.x == 120000000) {
+		float x = 1000.0;
+		float y = 3000.0;
+		float z = 1000.0;
+		void* font = GLUT_BITMAP_HELVETICA_12;
+		renderString(x, y, z, font, "GAME WIN");
+	}
 }
 
 void myDisplay(void)
@@ -937,6 +978,7 @@ void myKeyboard(unsigned char key, int x, int y)
 	checkforCoins();
 	checkForEnvironment2();
 	checkforApples();
+	checkforEndGame();
 	glutPostRedisplay();
 }
 void Special(int key, int x, int y) {
