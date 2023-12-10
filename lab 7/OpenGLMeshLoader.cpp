@@ -150,7 +150,9 @@ Model_3DS model_wardrobe;
 Model_3DS model_coin;
 Model_3DS model_door;
 Model_3DS model_wall;
-
+Model_3DS model_zombie;
+Model_3DS model_character;
+Model_3DS model_lamp;
 
 // Textures
 GLTexture tex_ground;
@@ -499,7 +501,7 @@ void myDisplay(void)
 	glPopMatrix();
 	// Draw Coin Model
 	glPushMatrix();
-	glTranslated(-800, 100, 10);
+	glTranslated(-800, 100, -130);
 	glScalef(1.0, 1.0, 1.0);
 	model_coin.Draw();
 	glPopMatrix();
@@ -514,6 +516,46 @@ void myDisplay(void)
 	glTranslated(0, 100, 900);
 	glScalef(1.0, 1.0, 1.0);
 	model_coin.Draw();
+	glPopMatrix();
+
+	// Draw Door Model
+	glPushMatrix();
+	glTranslated(550, 0,-550);
+	glRotated(-45, 0.0, 1.0, 0.0);
+	glScalef(1.0, 1.0, 1.0);
+	model_door.Draw();
+	glPopMatrix();
+
+	// Draw monster Model
+	glPushMatrix();
+	glTranslated(100, 110, 100);
+	glRotated(90, 1.0, 0.0, 0.0);
+	glScalef(100.0, 100.0, 100.0);
+	model_zombie.Draw();
+	glPopMatrix();
+	// Draw monster Model
+	glPushMatrix();
+	glTranslated(-1300, 110, 1000);
+	glRotated(45, 0.0, 1.0, 0.0);
+	glRotated(90, 1.0, 0.0, 0.0);
+	glScalef(100.0, 100.0, 100.0);
+	model_zombie.Draw();
+	glPopMatrix();
+
+	// Draw character Model
+	glPushMatrix();
+	glTranslated(400, 1, 400);
+	glRotated(225, 0.0, 1.0, 0.0);
+	glScalef(1.0, 1.0, 1.0);
+	model_character.Draw();
+	glPopMatrix();
+
+	// Draw lamp Model
+	glPushMatrix();
+	glTranslated(0, 0, -800);
+	//glRotated(225, 0.0, 1.0, 0.0);
+	glScalef(0.25, 0.25, 0.25);
+	model_lamp.Draw();
 	glPopMatrix();
 
 	//sky box
@@ -684,7 +726,10 @@ void LoadAssets()
 	model_chair.Load("Models/odesd2_C4_3ds/odesd2_C4_3ds.3ds");
 	model_wardrobe.Load("Models/Wardobe_3ds/MRWardobe.3ds");
 	model_coin.Load("models/3ds-coin/rc-coin.3ds");
-	//model_door.Load("models/bear/chair.3ds");
+	model_door.Load("models/Door_3DS/Door_Standart.3ds");
+	model_character.Load("models/Terrorist/FatTerrorist.3ds");
+	model_zombie.Load("models/Zombie/ZOMBIE.3ds");
+	model_lamp.Load("models/lamp3ds/lamp.3ds");
 
 	// Loading texture files
 	tex_ground.Load("Textures/ground.bmp");
