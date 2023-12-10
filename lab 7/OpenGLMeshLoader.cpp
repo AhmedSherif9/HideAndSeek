@@ -711,7 +711,17 @@ void myKeyboard(unsigned char key, int x, int y)
 		break;
 	case 'j':
 		model_character.rot.y = 90.0f;
-		if (model_character.pos.x == 800 &&
+		if (model_character.pos.x == 700 &&
+			(model_character.pos.z == -200 || model_character.pos.z == -100 || model_character.pos.z == 0 || model_character.pos.z == 100 ||
+				model_character.pos.z == 200 || model_character.pos.z == 300 || model_character.pos.z == 400 ||
+				model_character.pos.z == 500 || model_character.pos.z == 600 ||
+				model_character.pos.z == 700 || model_character.pos.z == 800 ||
+				model_character.pos.z == 900 || model_character.pos.z == 1000 ||
+				model_character.pos.z == 1100 || model_character.pos.z == 1200 ||
+				model_character.pos.z == 1300)) {
+			//sound for walls
+		}
+		else if (model_character.pos.x == -900 &&
 			(model_character.pos.z == -200 || model_character.pos.z == -100 || model_character.pos.z == 0 || model_character.pos.z == 100 ||
 				model_character.pos.z == 200 || model_character.pos.z == 300 || model_character.pos.z == 400 ||
 				model_character.pos.z == 500 || model_character.pos.z == 600 ||
@@ -761,6 +771,16 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.x == -600 || model_character.pos.x == -700)) {
 			// sound for walls
 		}
+		else if (model_character.pos.z == 1400 &&
+			(model_character.pos.x == 800 ||
+				model_character.pos.x == 700 || model_character.pos.x == 600 || model_character.pos.x == 500 || model_character.pos.x == 400 ||
+				model_character.pos.x == 300 || model_character.pos.x == 200 || model_character.pos.x == 100 ||
+				model_character.pos.x == 0 || model_character.pos.x == -100 ||
+				model_character.pos.x == -200 || model_character.pos.x == -300 ||
+				model_character.pos.x == -400 || model_character.pos.x == -500 ||
+				model_character.pos.x == -600 || model_character.pos.x == -700)) {
+			//sound for walls
+		}
 		else if ((model_character.pos.x == 100 && model_character.pos.z == 1300) ||
 			(model_character.pos.x == -700 && model_character.pos.z == 100) || 
 			(model_character.pos.x == -600 && model_character.pos.z == 100) || 
@@ -802,6 +822,16 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.z == 700 || model_character.pos.z == 800 || 
 				model_character.pos.z == 900 || model_character.pos.z == 1000 || 
 				model_character.pos.z == 1100 || model_character.pos.z == 1200 || 
+				model_character.pos.z == 1300)) {
+			//sound for walls
+		}
+		else if (model_character.pos.x == 900 &&
+			(model_character.pos.z == -200 || model_character.pos.z == -100 || model_character.pos.z == 0 || model_character.pos.z == 100 ||
+				model_character.pos.z == 200 || model_character.pos.z == 300 || model_character.pos.z == 400 ||
+				model_character.pos.z == 500 || model_character.pos.z == 600 ||
+				model_character.pos.z == 700 || model_character.pos.z == 800 ||
+				model_character.pos.z == 900 || model_character.pos.z == 1000 ||
+				model_character.pos.z == 1100 || model_character.pos.z == 1200 ||
 				model_character.pos.z == 1300)) {
 			//sound for walls
 		}
