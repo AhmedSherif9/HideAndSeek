@@ -13,6 +13,5 @@ Debug/
 *.swp
 *.tmp
 
-models/odesd2_B2_3ds
-models/odesd2_C4_3ds
+models/
 
