@@ -26,6 +26,7 @@ GLdouble zFar = 4800;
 void setupCamera();
 void setupLights();
 void checkForEnvironment2();
+void checkforApples();
 
 class Vector3f {
 public:
@@ -145,7 +146,13 @@ Model_3DS model_house;
 Model_3DS model_tree;
 Model_3DS model_palmtree;
 Model_3DS model_chair;
-Model_3DS model_apple;
+Model_3DS model_apple1;
+Model_3DS model_apple2;
+Model_3DS model_apple3;
+Model_3DS model_apple4;
+Model_3DS model_apple5;
+Model_3DS model_apple6;
+Model_3DS model_apple7;
 Model_3DS model_table;
 Model_3DS model_wardrobe;
 Model_3DS model_coin1;
@@ -318,6 +325,39 @@ void checkForEnvironment2() {
 	glutPostRedisplay();
 }
 
+void checkforApples() {
+	if ((model_character.pos.x == -2400 && model_character.pos.z == 800) ||
+		(model_character.pos.x == -2400 && model_character.pos.z == 900)) {
+		model_apple6.pos.x = 120000000;
+	}
+	if ((model_character.pos.x == -800 && model_character.pos.z == -1100) ||
+		(model_character.pos.x == -800 && model_character.pos.z == -1200)) {
+		model_apple3.pos.x = 120000000;
+	}
+	if (model_character.pos.x == -1300 && model_character.pos.z == -700) {
+		model_apple4.pos.x = 120000000;
+	}
+	if (model_character.pos.x == 600 && model_character.pos.z == -1300) {
+		model_apple2.pos.x = 120000000;
+	}
+	if (model_character.pos.x == 1200 && model_character.pos.z == -600) {
+		model_apple1.pos.x = 120000000;
+	}
+	if (model_character.pos.x == 1100 && model_character.pos.z == 2400) {
+		model_apple7.pos.x = 120000000;
+	}
+	if (model_character.pos.x == -200 && model_character.pos.z == 3100) {
+		model_apple5.pos.x = 120000000;
+	}
+	//if (model_character.pos.x == 600 && model_character.pos.z == -100) {
+		//model_coin4.pos.x = 120000000;
+//	}
+	//if (model_character.pos.x == 400 && model_character.pos.z == 1300) {
+		//model_coin2.pos.x = 120000000;
+	//}
+	glutPostRedisplay();
+}
+
 void myDisplay(void)
 {
 	setupCamera();
@@ -383,7 +423,7 @@ void myDisplay(void)
 	glPushMatrix();
 	glTranslatef(0, 0, 1700);
 	glScalef(1.0, 1.0, 1.0);
-	model_apple.Draw();
+	model_apple1.Draw();
 	glPopMatrix();
 	// Draw Tree Model
 	glPushMatrix();
@@ -395,14 +435,14 @@ void myDisplay(void)
 	glPushMatrix();
 	glTranslatef(900, 0, 1700);
 	glScalef(1.0, 1.0, 1.0);
-	model_apple.Draw();
+	model_apple2.Draw();
 	glPopMatrix();
 
 	// Draw apple Model
 	glPushMatrix();
 	glTranslatef(1800, 0, 600);
 	glScalef(1.0, 1.0, 1.0);
-	model_apple.Draw();
+	model_apple3.Draw();
 	glPopMatrix();
 	// Draw Tree Model
 	glPushMatrix();
@@ -414,14 +454,14 @@ void myDisplay(void)
 	glPushMatrix();
 	glTranslatef(1800, 0, 0);
 	glScalef(1.0, 1.0, 1.0);
-	model_apple.Draw();
+	model_apple4.Draw();
 	glPopMatrix();
 
 	// Draw apple Model
 	glPushMatrix();
 	glTranslatef(-1670, 0, -1900);
 	glScalef(1.0, 1.0, 1.0);
-	model_apple.Draw();
+	model_apple5.Draw();
 	glPopMatrix();
 	// Draw Tree Model
 	glPushMatrix();
@@ -434,7 +474,7 @@ void myDisplay(void)
 	glPushMatrix();
 	glTranslatef(1500, 0, -1900);
 	glScalef(1.0, 1.0, 1.0);
-	model_apple.Draw();
+	model_apple6.Draw();
 	glPopMatrix();
 	// Draw Tree Model
 	glPushMatrix();
@@ -453,7 +493,7 @@ void myDisplay(void)
 	glPushMatrix();
 	glTranslatef(-2100, 0, -500);
 	glScalef(1.0, 1.0, 1.0);
-	model_apple.Draw();
+	model_apple7.Draw();
 	glPopMatrix();
 
 	// Draw Table Model
@@ -871,6 +911,7 @@ void myKeyboard(unsigned char key, int x, int y)
 
 	checkforCoins();
 	checkForEnvironment2();
+	checkforApples();
 	glutPostRedisplay();
 }
 void Special(int key, int x, int y) {
@@ -973,7 +1014,13 @@ void LoadAssets()
 	model_tree.Load("Models/tree/Tree1.3ds");
 	model_palmtree.Load("models/Tree3/Tree3.3ds");
 	model_table.Load("Models/odesd2_B2_3ds/odesd2_B2_3ds.3ds");
-	model_apple.Load("models/apple/apple.3ds");
+	model_apple1.Load("models/apple/apple.3ds");
+	model_apple2.Load("models/apple/apple.3ds");
+	model_apple3.Load("models/apple/apple.3ds");
+	model_apple4.Load("models/apple/apple.3ds");
+	model_apple5.Load("models/apple/apple.3ds");
+	model_apple6.Load("models/apple/apple.3ds");
+	model_apple7.Load("models/apple/apple.3ds");
 	model_chair.Load("Models/odesd2_C4_3ds/odesd2_C4_3ds.3ds");
 	model_wardrobe.Load("Models/Wardobe_3ds/MRWardobe.3ds");
 	model_coin1.Load("models/3ds-coin/rc-coin.3ds");
