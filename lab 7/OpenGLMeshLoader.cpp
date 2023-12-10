@@ -671,6 +671,7 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == -600 && model_character.pos.z == -100) ||
 			(model_character.pos.x == -700 && model_character.pos.z == -100) ||
 			(model_character.pos.x == 300 && model_character.pos.z == -100) ||
+			(model_character.pos.x == 300 && model_character.pos.z == -200) ||
 			(model_character.pos.x == 400 && model_character.pos.z == -200) ||
 			(model_character.pos.x == 500 && model_character.pos.z == -100) ||
 			(model_character.pos.x == 600 && model_character.pos.z == 0) ||
@@ -696,6 +697,13 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == -300 && model_character.pos.z == 2600) ) {
 			//sound for trees
 		}
+		else if ((model_character.pos.x == 0 && model_character.pos.z == 900) ||
+			(model_character.pos.x == 200 && model_character.pos.z == 900) ||
+			(model_character.pos.x == 200 && model_character.pos.z == 1000) || 
+			(model_character.pos.x == -100 && model_character.pos.z == 1000) ||
+			(model_character.pos.x == -200 && model_character.pos.z == 1000)) {
+			// sound for chair
+		}
 		else {
 			model_character.pos.z += 100.0f;
 		}
@@ -712,6 +720,29 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.z == 1100 || model_character.pos.z == 1200 ||
 				model_character.pos.z == 1300)) {
 			//sound for walls
+		}
+		else if ((model_character.pos.x == 0 && model_character.pos.z == 900) ||
+			(model_character.pos.x == 0 && model_character.pos.z == 1000) ||
+			(model_character.pos.x == 0 && model_character.pos.z == 1100) ||
+			(model_character.pos.x == 0 && model_character.pos.z == 1200) ||
+			(model_character.pos.x == 200 && model_character.pos.z == -100) ||
+			(model_character.pos.x == 300 && model_character.pos.z == 0) ||
+			(model_character.pos.x == 400 && model_character.pos.z == 100) ||
+			(model_character.pos.x == 500 && model_character.pos.z == 200)) {
+			// sound for tables
+		}
+		else if ((model_character.pos.x == 400 && model_character.pos.z == 1000) ||
+			(model_character.pos.x == 400 && model_character.pos.z == 1100) ||
+			(model_character.pos.x == 400 && model_character.pos.z == 1200)) {
+			// sound for wardrobe
+		}
+		else if ((model_character.pos.x == -700 && model_character.pos.z == 1100)) {
+			// sound for bulb
+		}
+		else if ((model_character.pos.x == -100 && model_character.pos.z == 1000) ||
+			(model_character.pos.x == -200 && model_character.pos.z == 1100) ||
+			(model_character.pos.x == 300 && model_character.pos.z == 100)) {
+			// sound for chair
 		}
 		else {
 			model_character.pos.x += 100.0f;
@@ -730,6 +761,33 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.x == -600 || model_character.pos.x == -700)) {
 			// sound for walls
 		}
+		else if ((model_character.pos.x == 100 && model_character.pos.z == 1300) ||
+			(model_character.pos.x == -700 && model_character.pos.z == 100) || 
+			(model_character.pos.x == -600 && model_character.pos.z == 100) || 
+			(model_character.pos.x == -500 && model_character.pos.z == 100) || 
+			(model_character.pos.x == -400 && model_character.pos.z == 100) || 
+			(model_character.pos.x == 600 && model_character.pos.z == 200) ||
+			(model_character.pos.x == 500 && model_character.pos.z == 200) || 
+			(model_character.pos.x == 400 && model_character.pos.z == 100) || 
+			(model_character.pos.x == 300 && model_character.pos.z == 0)) {
+			// sound for tables
+		}
+		else if ((model_character.pos.x == 600 && model_character.pos.z == 1300) ||
+			(model_character.pos.x == 500 && model_character.pos.z == 1300)) {
+			// sound for wardrobe
+		}
+		else if ((model_character.pos.x == -600 && model_character.pos.z == 1200) ||
+			(model_character.pos.x == -500 && model_character.pos.z == 1200)) {
+			// sound for bulb
+		}
+		else if ((model_character.pos.x == -100 && model_character.pos.z == 1200) ||
+			(model_character.pos.x == -200 && model_character.pos.z == 1200) ||
+			(model_character.pos.x == 0 && model_character.pos.z == 1100) ||
+			(model_character.pos.x == 200 && model_character.pos.z == 1100) ||
+			(model_character.pos.x == 200 && model_character.pos.z == 1200)
+			|| (model_character.pos.x == 400 && model_character.pos.z == 200)) {
+			// sound for chair
+		}
 		else {
 			model_character.pos.z -= 100.0f;
 		}
@@ -746,6 +804,31 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.z == 1100 || model_character.pos.z == 1200 || 
 				model_character.pos.z == 1300)) {
 			//sound for walls
+		}
+		else if ((model_character.pos.x == 200 && model_character.pos.z == 1200) ||
+			(model_character.pos.x == 200 && model_character.pos.z == 1100) ||
+			(model_character.pos.x == 200 && model_character.pos.z == 1000) ||
+			(model_character.pos.x == 200 && model_character.pos.z == 900) ||
+			(model_character.pos.x == -300 && model_character.pos.z == 0) ||
+			(model_character.pos.x == -300 && model_character.pos.z == -100) ||
+			(model_character.pos.x == 700 && model_character.pos.z == 200) ||
+			(model_character.pos.x == 700 && model_character.pos.z == 100) ||
+			(model_character.pos.x == 600 && model_character.pos.z == 0) ||
+			(model_character.pos.x == 500 && model_character.pos.z == -100)) {
+			// sound for tables
+		}
+		else if ((model_character.pos.x == 700 && model_character.pos.z == 1000) ||
+			(model_character.pos.x == 700 && model_character.pos.z == 1100) ||
+			(model_character.pos.x == 700 && model_character.pos.z == 1200)) {
+			// sound for wardrobe
+		}
+		else if ((model_character.pos.x == -500 && model_character.pos.z == 1100)) {
+			// sound for bulb
+		}
+		else if ((model_character.pos.x == 300 && model_character.pos.z == 1000) ||
+			(model_character.pos.x == 300 && model_character.pos.z == 1100)
+			|| (model_character.pos.x == 0 && model_character.pos.z == 1100)) {
+			// sound for chair
 		}
 		else {
 			model_character.pos.x -= 100.0f;
