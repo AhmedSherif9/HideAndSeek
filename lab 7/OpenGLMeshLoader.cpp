@@ -6,8 +6,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
+#include<Windows.h>
 #include <sstream>
 #include <vector>
+#include <thread>
 
 #define GLUT_KEY_ESCAPE 27
 #define DEG2RAD(a) (a * 0.0174532925)
@@ -22,6 +24,18 @@ GLdouble fovy = 45.0;
 GLdouble aspectRatio = (GLdouble)WIDTH / (GLdouble)HEIGHT;
 GLdouble zNear = 0.1;
 GLdouble zFar = 4800;
+bool coin1 = true;
+bool coin2 = true;
+bool coin3 = true;
+bool coin4 = true;
+bool apple1 = true;
+bool apple2 = true;
+bool apple3 = true;
+bool apple4 = true;
+bool apple5 = true;
+bool apple6 = true;
+bool apple7 = true;
+
 
 void setupCamera();
 void setupLights();
@@ -307,18 +321,38 @@ void checkforCoins() {
 	if (model_character.pos.x == -700 && model_character.pos.z == -200) {
 		model_coin3.pos.x = 120000000;
 		//sound for coin
+		if (coin3) {
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Coin\\coin.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
+			coin3 = false;
+		}
 	}
 	if (model_character.pos.x == 0 && model_character.pos.z == 600) {
 		model_coin1.pos.x = 120000000;
 		//sound for coin
+		if (coin1) {
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Coin\\coin.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
+			coin1 = false;
+		}
 	}
 	if (model_character.pos.x == 600 && model_character.pos.z == -100) {
 		model_coin4.pos.x = 120000000;
 		//sound for coin
+		if (coin4) {
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Coin\\coin.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
+			coin4 = false;
+		}
 	}
 	if (model_character.pos.x == 400 && model_character.pos.z == 1300) {
 		model_coin2.pos.x = 120000000;
 		//sound for coin
+		if (coin2) {
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Coin\\coin.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
+			coin2 = false;
+		}
 	}
 	glutPostRedisplay();
 }
@@ -337,31 +371,66 @@ void checkforApples() {
 		(model_character.pos.x == -2400 && model_character.pos.z == 900)) {
 		model_apple6.pos.x = 120000000;
 		//sound for apple
+		if (apple6) {
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Apple\\apple.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
+			apple6 = false;
+		}
 	}
 	if ((model_character.pos.x == -800 && model_character.pos.z == -1100) ||
 		(model_character.pos.x == -800 && model_character.pos.z == -1200)) {
 		model_apple3.pos.x = 120000000;
 		//sound for apple
+		if (apple3) {
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Apple\\apple.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
+			apple3 = false;
+		}
 	}
 	if (model_character.pos.x == -1300 && model_character.pos.z == -700) {
 		model_apple4.pos.x = 120000000;
 		//sound for apple
+		if (apple4) {
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Apple\\apple.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
+			apple4 = false;
+		}
 	}
 	if (model_character.pos.x == 600 && model_character.pos.z == -1300) {
 		model_apple2.pos.x = 120000000;
 		//sound for apple
+		if (apple2) {
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Apple\\apple.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
+			apple2 = false;
+		}
 	}
 	if (model_character.pos.x == 1200 && model_character.pos.z == -600) {
 		model_apple1.pos.x = 120000000;
 		//sound for apple
+		if (apple1) {
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Apple\\apple.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
+			apple1 = false;
+		}
 	}
 	if (model_character.pos.x == 1100 && model_character.pos.z == 2400) {
 		model_apple7.pos.x = 120000000;
 		//sound for apple
+		if (apple7) {
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Apple\\apple.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
+			apple7 = false;
+		}
 	}
 	if (model_character.pos.x == -200 && model_character.pos.z == 3100) {
 		model_apple5.pos.x = 120000000;
 		//sound for apple
+		if (apple5) {
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Apple\\apple.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
+			apple5 = false;
+		}
 	}
 	glutPostRedisplay();
 }
@@ -735,6 +804,8 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.x == -400 || model_character.pos.x == -500 ||
 				model_character.pos.x == -600 || model_character.pos.x == -700)) {
 			//sound for walls
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if (model_character.pos.z == -300 &&
 			(model_character.pos.x == 800 ||
@@ -746,6 +817,8 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.x == -600 || model_character.pos.x == -700
 				|| model_character.pos.x == -800)) {
 			//sound for walls
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == -400 && model_character.pos.z == -100) ||
 			(model_character.pos.x == -500 && model_character.pos.z == -100) ||
@@ -759,14 +832,20 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == 100 && model_character.pos.z == 800)
 			) {
 			//sound for tables
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == 500 && model_character.pos.z == 1000) ||
 			(model_character.pos.x == 600 && model_character.pos.z == 1000)) {
 			//sound for wardrobe
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == -500 && model_character.pos.z == 1100) ||
 			(model_character.pos.x == -600 && model_character.pos.z == 1100)) {
 			//sound for bulb
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == 1800 && model_character.pos.z == 900) ||
 			(model_character.pos.x == 1900 && model_character.pos.z == 900) ||
@@ -777,6 +856,8 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == -1900 && model_character.pos.z == 900) || 
 			(model_character.pos.x == -300 && model_character.pos.z == 2600) ) {
 			//sound for trees
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == 0 && model_character.pos.z == 900) ||
 			(model_character.pos.x == 200 && model_character.pos.z == 900) ||
@@ -784,6 +865,8 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == -100 && model_character.pos.z == 1000) ||
 			(model_character.pos.x == -200 && model_character.pos.z == 1000)) {
 			// sound for chair
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else {
 			model_character.pos.z += 100.0f;
@@ -801,6 +884,8 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.z == 1100 || model_character.pos.z == 1200 ||
 				model_character.pos.z == 1300)) {
 			//sound for walls
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if (model_character.pos.x == -900 &&
 			(model_character.pos.z == -200 || model_character.pos.z == -100 || model_character.pos.z == 0 || model_character.pos.z == 100 ||
@@ -811,6 +896,8 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.z == 1100 || model_character.pos.z == 1200 ||
 				model_character.pos.z == 1300)) {
 			//sound for walls
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == 0 && model_character.pos.z == 900) ||
 			(model_character.pos.x == 0 && model_character.pos.z == 1000) ||
@@ -821,19 +908,27 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == 400 && model_character.pos.z == 100) ||
 			(model_character.pos.x == 500 && model_character.pos.z == 200)) {
 			// sound for tables
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == 400 && model_character.pos.z == 1000) ||
 			(model_character.pos.x == 400 && model_character.pos.z == 1100) ||
 			(model_character.pos.x == 400 && model_character.pos.z == 1200)) {
 			// sound for wardrobe
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == -700 && model_character.pos.z == 1100)) {
 			// sound for bulb
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == -100 && model_character.pos.z == 1000) ||
 			(model_character.pos.x == -200 && model_character.pos.z == 1100) ||
 			(model_character.pos.x == 300 && model_character.pos.z == 100)) {
 			// sound for chair
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == -1900 && model_character.pos.z == 1000) ||
 			(model_character.pos.x == -1300 && model_character.pos.z == -800) ||
@@ -841,6 +936,8 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == 1700 && model_character.pos.z == 1000) ||
 			(model_character.pos.x == -400 && model_character.pos.z == 2700)) {
 			// sound for trees
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else {
 			model_character.pos.x += 100.0f;
@@ -858,6 +955,8 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.x == -400 || model_character.pos.x == -500 ||
 				model_character.pos.x == -600 || model_character.pos.x == -700)) {
 			// sound for walls
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if (model_character.pos.z == 1400 &&
 			(model_character.pos.x == 800 ||
@@ -868,6 +967,8 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.x == -400 || model_character.pos.x == -500 ||
 				model_character.pos.x == -600 || model_character.pos.x == -700)) {
 			//sound for walls
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == 100 && model_character.pos.z == 1300) ||
 			(model_character.pos.x == -700 && model_character.pos.z == 100) || 
@@ -879,14 +980,20 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == 400 && model_character.pos.z == 100) || 
 			(model_character.pos.x == 300 && model_character.pos.z == 0)) {
 			// sound for tables
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == 600 && model_character.pos.z == 1300) ||
 			(model_character.pos.x == 500 && model_character.pos.z == 1300)) {
 			// sound for wardrobe
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == -600 && model_character.pos.z == 1200) ||
 			(model_character.pos.x == -500 && model_character.pos.z == 1200)) {
 			// sound for bulb
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == -100 && model_character.pos.z == 1200) ||
 			(model_character.pos.x == -200 && model_character.pos.z == 1200) ||
@@ -895,6 +1002,8 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == 200 && model_character.pos.z == 1200)
 			|| (model_character.pos.x == 400 && model_character.pos.z == 200)) {
 			// sound for chair
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == -1900 && model_character.pos.z == 1100) ||
 			(model_character.pos.x == -1800 && model_character.pos.z == 1100) ||
@@ -905,6 +1014,8 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == 1900 && model_character.pos.z == 1100) ||
 			(model_character.pos.x == -300 && model_character.pos.z == 2800)) {
 			// sound for trees
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else {
 			model_character.pos.z -= 100.0f;
@@ -922,6 +1033,8 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.z == 1100 || model_character.pos.z == 1200 || 
 				model_character.pos.z == 1300)) {
 			//sound for walls
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if (model_character.pos.x == 900 &&
 			(model_character.pos.z == -200 || model_character.pos.z == -100 || model_character.pos.z == 0 || model_character.pos.z == 100 ||
@@ -932,6 +1045,8 @@ void myKeyboard(unsigned char key, int x, int y)
 				model_character.pos.z == 1100 || model_character.pos.z == 1200 ||
 				model_character.pos.z == 1300)) {
 			//sound for walls
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == 200 && model_character.pos.z == 1200) ||
 			(model_character.pos.x == 200 && model_character.pos.z == 1100) ||
@@ -944,19 +1059,27 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == 600 && model_character.pos.z == 0) ||
 			(model_character.pos.x == 500 && model_character.pos.z == -100)) {
 			// sound for tables
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == 700 && model_character.pos.z == 1000) ||
 			(model_character.pos.x == 700 && model_character.pos.z == 1100) ||
 			(model_character.pos.x == 700 && model_character.pos.z == 1200)) {
 			// sound for wardrobe
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == -500 && model_character.pos.z == 1100)) {
 			// sound for bulb
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == 300 && model_character.pos.z == 1000) ||
 			(model_character.pos.x == 300 && model_character.pos.z == 1100)
 			|| (model_character.pos.x == 0 && model_character.pos.z == 1100)) {
 			// sound for chair
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else if ((model_character.pos.x == -1700 && model_character.pos.z == 1000) ||
 			(model_character.pos.x == -1100 && model_character.pos.z == -800) ||
@@ -965,6 +1088,8 @@ void myKeyboard(unsigned char key, int x, int y)
 			(model_character.pos.x == -200 && model_character.pos.z == 2700) ||
 			(model_character.pos.x == -200 && model_character.pos.z == 2600)) {
 			// sound for trees
+			const wchar_t* path = L"C:\\Users\\ziad sherif\\Documents\\Sounds\\Hit\\hit.wav";
+			PlaySoundW(path, NULL, SND_FILENAME | SND_ASYNC);
 		}
 		else {
 			model_character.pos.x -= 100.0f;
