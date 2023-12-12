@@ -35,7 +35,8 @@ bool apple4 = true;
 bool apple5 = true;
 bool apple6 = true;
 bool apple7 = true;
-
+bool begin = true;
+int remainingTime = 1800;
 
 void setupCamera();
 void setupLights();
@@ -43,7 +44,6 @@ void checkForEnvironment2();
 void checkforApples();
 void renderString(float x, float y, float z, void* font, const char* string);
 void renderInteger(float x, float y, float z, void* font, int value);
-void checkforEndGame();
 
 class Vector3f {
 public:
@@ -178,7 +178,8 @@ Model_3DS model_coin3;
 Model_3DS model_coin4;
 Model_3DS model_door;
 Model_3DS model_wall;
-Model_3DS model_zombie;
+Model_3DS model_zombie1;
+Model_3DS model_zombie2;
 Model_3DS model_character;
 Model_3DS model_lamp;
 
@@ -308,6 +309,14 @@ void RenderGround()
 //=======================================================================
 // Display Function
 //=======================================================================
+
+void Timer(int value) {
+	if (remainingTime > 0) {
+		remainingTime--;  // Decrement the remaining time
+		glutPostRedisplay();  // Redraw the scene
+		glutTimerFunc(1000, Timer, 0);  // Call the Timer function again after 1000 milliseconds (1 second)
+	}
+}
 
 void drawWall(double thickness) {
 	glPushMatrix();
@@ -449,7 +458,7 @@ void renderInteger(float x, float y, float z, void* font, int value) {
 	renderString(x, y, z, font, buffer);
 }
 
-void checkforEndGame() {
+void checkforWin() {
 	if (((model_character.pos.x == 1700 && model_character.pos.z == 1000) ||
 		(model_character.pos.x == 1800 && model_character.pos.z == 900) || 
 		(model_character.pos.x == 1900 && model_character.pos.z == 900) || 
@@ -465,7 +474,208 @@ void checkforEndGame() {
 		float z = 1000.0;
 		void* font = GLUT_BITMAP_HELVETICA_12;
 		renderString(x, y, z, font, "GAME WIN");
+		//std::cout << " hahahahha: " << model_character.pos.z;
 	}
+}
+
+void checkForLose() {
+	if ((model_character.pos.x == (model_zombie2.pos.y * 100)) &&
+		(model_character.pos.z == (model_zombie2.pos.x * (-100)))) {
+		//std::cout << " hahahahha: " << model_character.pos.z;
+	}
+	if ((model_character.pos.x == (model_zombie1.pos.y*100)) &&
+		(model_character.pos.z == (model_zombie1.pos.x* (- 100)))) {
+		std::cout << " hahahahha: " << model_character.pos.z;
+	}
+}
+
+void enemy1Move() {
+	if (remainingTime == 1798) {
+		model_zombie1.pos.y -= 1.0f;
+		model_zombie1.rot.z = 90.0f;
+	}
+	if (remainingTime == 1794) {
+		model_zombie1.pos.y -= 1.0f;
+	}
+	if (remainingTime == 1790) {
+		model_zombie1.pos.y -= 1.0f;
+	}
+	if (remainingTime == 1786) {
+		model_zombie1.pos.y -= 1.0f;
+	}
+	if (remainingTime == 1782) {
+		model_zombie1.pos.y -= 1.0f;
+	}
+	if (remainingTime == 1778) {
+		model_zombie1.pos.y -= 1.0f;
+	}
+	if (remainingTime == 1774) {
+		model_zombie1.pos.x -= 1.0f;
+		model_zombie1.rot.z = 0.0f;
+	}
+	if (remainingTime == 1770) {
+		model_zombie1.pos.x -= 1.0f;
+	}
+	if (remainingTime == 1766) {
+		model_zombie1.pos.x -= 1.0f;
+	}
+	if (remainingTime == 1762) {
+		model_zombie1.pos.x -= 1.0f;
+	}
+	if (remainingTime == 1758) {
+		model_zombie1.pos.x -= 1.0f;
+	}
+	if (remainingTime == 1754) {
+		model_zombie1.pos.x -= 1.0f;
+	}
+	if (remainingTime == 1750) {
+		model_zombie1.pos.x -= 1.0f;
+	}
+	if (remainingTime == 1746) {
+		model_zombie1.pos.x -= 1.0f;
+	}
+	if (remainingTime == 1742) {
+		model_zombie1.pos.y += 1.0f;
+		model_zombie1.rot.z = -90.0f;
+	}
+	if (remainingTime == 1738) {
+		model_zombie1.pos.y += 1.0f;
+	}
+	if (remainingTime == 1734) {
+		model_zombie1.pos.x -= 1.0f;
+		model_zombie1.rot.z = 0.0f;
+	}
+	if (remainingTime == 1730) {
+		model_zombie1.pos.x -= 1.0f;
+	}
+	if (remainingTime == 1726) {
+		model_zombie1.pos.x -= 1.0f;
+	}
+	if (remainingTime == 1722) {
+		model_zombie1.rot.z = -90.0f;
+		model_zombie1.pos.y += 1.0f;
+	}
+	if (remainingTime == 1718) {
+		model_zombie1.pos.y += 1.0f;
+	}
+	if (remainingTime == 1714) {
+		model_zombie1.pos.y += 1.0f;
+	}
+	if (remainingTime == 1710) {
+		model_zombie1.pos.y += 1.0f;
+	}
+	if (remainingTime == 1707) {
+		model_zombie1.pos.y += 1.0f;
+	}
+	if (remainingTime == 1704) {
+		model_zombie1.pos.y += 1.0f;
+	}
+	if (remainingTime == 1700) {
+		model_zombie1.pos.y += 1.0f;
+	}
+	if (remainingTime == 1696) {
+		model_zombie1.pos.y += 1.0f;
+	}
+	if (remainingTime == 1692) {
+		model_zombie1.rot.z = 180.0f;
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1688) {
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1684) {
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1680) {
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1676) {
+		model_zombie1.rot.z = -90.0f;
+		model_zombie1.pos.y += 1.0f;
+	}
+	if (remainingTime == 1672) {
+		model_zombie1.pos.y += 1.0f;
+	}
+	if (remainingTime == 1668) {
+		model_zombie1.pos.y += 1.0f;
+	}
+	if (remainingTime == 1664) {
+		model_zombie1.rot.z = 180.0f;
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1660) {
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1656) {
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1652) {
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1648) {
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1644) {
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1640) {
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1636) {
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1632) {
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1628) {
+		model_zombie1.pos.x += 1.0f;
+	}
+	if (remainingTime == 1624) {
+		model_zombie1.pos.x += 1.0f;
+	}
+
+	if (remainingTime == 1620) {
+		model_zombie1.rot.z = 90.0f;
+		model_zombie1.pos.y -= 1.0f;
+	}
+	if (remainingTime == 1616) {
+		model_zombie1.pos.y -= 1.0f;
+	}
+	if (remainingTime == 1612) {
+		model_zombie1.pos.y -= 1.0f;
+	}
+	if (remainingTime == 1608) {
+		model_zombie1.pos.y -= 1.0f;
+	}
+	if (remainingTime == 1604) {
+		model_zombie1.pos.y -= 1.0f;
+	}
+	if (remainingTime == 1600) {
+		model_zombie1.pos.y -= 1.0f;
+	}
+	if (remainingTime == 1596) {
+		model_zombie1.pos.y -= 1.0f;
+	}
+	if (remainingTime == 1592) {
+		model_zombie1.rot.z = 0.0f;
+		model_zombie1.pos.x -= 1.0f;
+	}
+	if (remainingTime == 1588) {
+		model_zombie1.pos.x -= 1.0f;
+	}
+	if (remainingTime == 1584) {
+		model_zombie1.pos.x -= 1.0f;
+	}
+	if (remainingTime == 1580) {
+		model_zombie1.pos.x -= 1.0f;
+		remainingTime = 1799;
+	}
+}
+
+void beginning() {
+	model_zombie1.pos.x -= 2.0f;
+	model_zombie2.pos.x -= 2.0f;
+	model_zombie2.pos.y += 11.0f;
 }
 
 void myDisplay(void)
@@ -480,12 +690,14 @@ void myDisplay(void)
 	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
 	glLightfv(GL_LIGHT0, GL_AMBIENT, lightIntensity);
 
+	enemy1Move();
+
 	//walls
 	//ground
 	glColor3f(0.5, 0.35, 0.05);
 	glPushMatrix();
 	glRotated(-45, 0.0, 1.0, 0.0);
-	glScaled(20,2,20);
+	glScaled(20, 2, 20);
 	drawWall(0.02);
 	glPopMatrix();
 
@@ -700,7 +912,7 @@ void myDisplay(void)
 
 	// Draw Door Model
 	glPushMatrix();
-	glTranslated(550, 0,-550);
+	glTranslated(550, 0, -550);
 	glRotated(-45, 0.0, 1.0, 0.0);
 	glScalef(1.0, 1.0, 1.0);
 	model_door.Draw();
@@ -708,18 +920,21 @@ void myDisplay(void)
 
 	// Draw monster Model
 	glPushMatrix();
-	glTranslated(100, 110, 100);
+	glTranslated(400, 1, 400); //new
+	glRotated(-45, 0.0, 1.0, 0.0);
 	glRotated(90, 1.0, 0.0, 0.0);
 	glScalef(100.0, 100.0, 100.0);
-	model_zombie.Draw();
+	model_zombie2.Draw();
 	glPopMatrix();
+
 	// Draw monster Model
+
 	glPushMatrix();
-	glTranslated(-1300, 110, 1000);
-	glRotated(45, 0.0, 1.0, 0.0);
+	glTranslated(400, 1, 400); //new
+	glRotated(-45, 0.0, 1.0, 0.0);
 	glRotated(90, 1.0, 0.0, 0.0);
 	glScalef(100.0, 100.0, 100.0);
-	model_zombie.Draw();
+	model_zombie1.Draw();
 	glPopMatrix();
 
 	// Draw character Model
@@ -754,6 +969,13 @@ void myDisplay(void)
 
 
 	glPopMatrix();
+
+	if (begin) {
+	    beginning();
+		begin = false;
+    }
+	checkforWin();
+	checkForLose();
 
 	glutSwapBuffers();
 }
@@ -871,7 +1093,6 @@ void myKeyboard(unsigned char key, int x, int y)
 		else {
 			model_character.pos.z += 100.0f;
 		}
-		std::cout << " z is: " << model_character.pos.z;
 		break;
 	case 'j':
 		model_character.rot.y = 90.0f;
@@ -942,7 +1163,6 @@ void myKeyboard(unsigned char key, int x, int y)
 		else {
 			model_character.pos.x += 100.0f;
 		}
-		std::cout << " x is: " << model_character.pos.x;
 		break;
 	case 'k':
 		model_character.rot.y = 180.0f;
@@ -1020,7 +1240,6 @@ void myKeyboard(unsigned char key, int x, int y)
 		else {
 			model_character.pos.z -= 100.0f;
 		}
-		std::cout << " z is: " << model_character.pos.z;
 		break;
 	case 'l':
 		model_character.rot.y = -90.0f;
@@ -1094,7 +1313,6 @@ void myKeyboard(unsigned char key, int x, int y)
 		else {
 			model_character.pos.x -= 100.0f;
 		}
-		std::cout << " x is: " << model_character.pos.x;
 		break;
 	default:
 		break;
@@ -1103,7 +1321,6 @@ void myKeyboard(unsigned char key, int x, int y)
 	checkforCoins();
 	checkForEnvironment2();
 	checkforApples();
-	checkforEndGame();
 	glutPostRedisplay();
 }
 void Special(int key, int x, int y) {
@@ -1221,7 +1438,8 @@ void LoadAssets()
 	model_coin4.Load("models/3ds-coin/rc-coin.3ds");
 	model_door.Load("models/Door_3DS/Door_Standart.3ds");
 	model_character.Load("models/Terrorist/FatTerrorist.3ds");
-	model_zombie.Load("models/Zombie/ZOMBIE.3ds");
+	model_zombie1.Load("models/Zombie/ZOMBIE.3ds");
+	model_zombie2.Load("models/Zombie/ZOMBIE.3ds");
 	model_lamp.Load("models/lamp3ds/lamp.3ds");
 
 	// Loading texture files
@@ -1278,6 +1496,8 @@ void main(int argc, char** argv)
 	glutKeyboardFunc(myKeyboard);
 
 	glutSpecialFunc(Special);
+
+	glutTimerFunc(1000, Timer, 0);
 
 	glutMotionFunc(myMotion);
 
